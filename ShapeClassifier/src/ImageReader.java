@@ -13,9 +13,9 @@ class ImageReader {
    int width;
    int height;
    int data[][];
-   public ImageReader() {
+   public ImageReader(String filename) {
       try {
-         File input = new File("/Users/aakash/Desktop/testimg.jpg");
+         File input = new File(filename);
          image = ImageIO.read(input);
          width = image.getWidth();
          height = image.getHeight();
