@@ -3,11 +3,11 @@
  * 
  */
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 class ImageReader {
    BufferedImage  image;
    int width;
