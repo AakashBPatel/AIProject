@@ -12,25 +12,29 @@ class ImageReader {
    BufferedImage  image;
    int width;
    int height;
+   int data[][];
    public ImageReader() {
       try {
-         File input = new File("/Users/aakash/Desktop/ap_mugshot.jpg");
+         File input = new File("/Users/aakash/Desktop/testimg.jpg");
          image = ImageIO.read(input);
          width = image.getWidth();
          height = image.getHeight();
+         data = new int[height][width];
          int count = 0;
          for(int i=0; i<height; i++){
             for(int j=0; j<width; j++){
                count++;
                Color c = new Color(image.getRGB(j, i));
-               System.out.println("S.No: " + count + " Red: " + c.getRed() +
-               " Green: " + c.getGreen() + " Blue: " + c.getBlue());
+              // System.out.println("S.No: " + count + " Red: " + c.getRed() +
+              // " Green: " + c.getGreen() + " Blue: " + c.getBlue());
+               data[i][j] = (c.getBlue() + c.getRed() + c.getGreen()) > 700 ? 0:1;
+               System.out.println("S. No: " + count + " Value: " + data[i][j]);
                }
             }
       } catch (Exception e) {}
    }
-   static public void main(String args[]) throws Exception 
-   {
-	   ImageReader obj = new ImageReader();
+   
+   public int[][] getData(){
+	   return data;
    }
 }
