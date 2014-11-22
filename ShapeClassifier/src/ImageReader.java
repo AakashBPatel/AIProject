@@ -43,15 +43,17 @@ class ImageReader {
 	public int getHeight(){
 		return height;
 	}
-
+	// TODO WRIET NUMBER OF ARGS AS FIST THING
 	public static void main(String args[]){
+		System.out.println(args.length);
 		for(int argslen = 0; argslen < args.length; argslen++){
 			ImageReader image = new ImageReader(args[argslen]);
 			System.out.println(image.getHeight());
 			System.out.println(image.getWidth());
 			for(int i = 0; i<image.getHeight(); i++){
-				for(int j = 0; j < image.getWidth(); j++)
+				for(int j = 0; j < image.getWidth(); j++){
 					System.out.println(image.getData()[i][j]);
+				}
 			}
 		}
 	}
