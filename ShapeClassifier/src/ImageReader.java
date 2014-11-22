@@ -43,14 +43,16 @@ class ImageReader {
 	public int getHeight(){
 		return height;
 	}
-	
+
 	public static void main(String args[]){
-		ImageReader image = new ImageReader(args[0]);
-		System.out.println(image.getHeight());
-		System.out.println(image.getWidth());
-		for(int i = 0; i<image.getHeight(); i++){
-			for(int j = 0; j < image.getWidth(); j++)
-				System.out.println(image.getData()[i][j]);
+		for(int argslen = 0; argslen < args.length; argslen++){
+			ImageReader image = new ImageReader(args[argslen]);
+			System.out.println(image.getHeight());
+			System.out.println(image.getWidth());
+			for(int i = 0; i<image.getHeight(); i++){
+				for(int j = 0; j < image.getWidth(); j++)
+					System.out.println(image.getData()[i][j]);
+			}
 		}
 	}
 }
