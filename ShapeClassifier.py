@@ -1,14 +1,21 @@
 import neural
+import shlex, subprocess
 
-image_data = [];
+def read_image(filepath):
+	cmd = '/Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/bin/java  -Dfile.encoding=UTF-8 -classpath "/Users/aakash/Sync/Artificial Intelligence/AIProject/ShapeClassifier/bin" ImageReader ' + filepath
+	#print(cmd)
+	args = shlex.split(cmd)
+	output,error = subprocess.Popen(args,stdout = subprocess.PIPE, stderr= subprocess.PIPE).communicate()
+	#print(output)
+	raw = output.splitlines()
 
-images = eval(input())
-for image in range(images):
-	height = eval(input());
-	width = eval(input());
+	height = eval(raw[1])
+	width = eval(raw[2])
+	print(height)
+	print(width)
 	temp = []
 	for x in range(height*width):
-		temp.append(eval(input()))
-	image_data.append(temp)
+		temp.append(eval(raw[x+3]))
+	return temp
 
 # Make training array and network
