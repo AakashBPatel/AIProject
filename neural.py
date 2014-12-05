@@ -115,6 +115,8 @@ def classify(net, tset, eta, epsilon=0.1, maxepochs= 20000, verbose=False):
 def learn(net, datlist, obj, eta, epsilon=0, maxepochs=20000, verbose=True):
     n = 1
     while n < maxepochs:
+        '''if(n%10 == 0):
+            print("EPOCH: " + str(n))'''
         if verbose:
             print("Epoch %d: %s" % (n, net.weights()))
         done = epoch(net, datlist, obj, eta, epsilon, verbose)
@@ -137,6 +139,14 @@ def epoch(net, datlist, obj, eta, epsilon, verbose=True):
         if verbose:
             print("  testing %s; should get %s, got %s, error %s:" % (dat, trunc(F), trunc(f), trunc(err)))
     return done
+
+
+def classify_new(net, datlist, verbose=True):
+    for dat in datlist:
+        f = net.fire(*dat)
+        #err = list(map(lambda x: F[x] - f[x], list(range(len(F)))))         
+        print("Output: %s" % (trunc(f)))
+    return trunc(f)
 
 ### show presents 1 epoch of firings without backpropagation. It is used to
 #    view the current state of training
