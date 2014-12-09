@@ -74,7 +74,7 @@ def build_net():
 		hidden_layer2 += [t]
 		print("Done.")
 	output_layer = []
-	for i in range(4):
+	for i in range(5):
 		print("Creating output neuron " + str(i))
 		t = ()
 		for j in range((SIZE+5)//4+1):
@@ -124,10 +124,10 @@ def classify(path, net):
 
 # Make training array and network
 
-image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png"),read_image("/Users/aakash/Downloads/shapeyz/sp.png"),read_image("/Users/aakash/Downloads/shapeyz/st.png"),read_image("/Users/aakash/Downloads/shapeyz/sc.png")]
+image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png"),read_image("/Users/aakash/Downloads/shapeyz/sp.png"),read_image("/Users/aakash/Downloads/shapeyz/st.png"),read_image("/Users/aakash/Downloads/shapeyz/sc.png"),read_image("/Users/aakash/Downloads/shapeyz/sh.png")]
 #image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png")]
 #training_data = gen_training_data(image_data, [[1,0,0,0,0]])
-training_data = gen_training_data(image_data, [[1,0,0,0], [0,1,0,0],[0,0,1,0],[0,0,0,1]])
+training_data = gen_training_data(image_data, [[1,0,0,0,0], [0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1]])
 temp = build_net()
 net = neural.buildNet(temp[0], temp[1], temp[2], temp[3])
 classified = neural.classify(net, training_data, 0.2,verbose=True)
