@@ -115,14 +115,21 @@ def classify(net, tset, eta, epsilon=0.1, maxepochs= 20000, verbose=False):
 def learn(net, datlist, obj, eta, epsilon=0, maxepochs=20000, verbose=True):
     n = 1
     while n < maxepochs:
-        '''if(n%10 == 0):
-            print("EPOCH: " + str(n))'''
-        if verbose:
-            print("Epoch %d: %s" % (n, net.weights()))
-        done = epoch(net, datlist, obj, eta, epsilon, verbose)
-        if done:
-            return n
-        n += 1
+        if(n%50== 0):
+            print("EPOCH: " + str(n))
+            done = epoch(net, datlist, obj, eta, epsilon, True)
+           
+            if done:
+                return n
+            n += 1
+        else:
+            if verbose:
+                print("Epoch %d" % (n))
+                #print("Epoch %d: %s" % (n, net.weights()))
+            done = epoch(net, datlist, obj, eta, epsilon, verbose)
+            if done:
+                return n
+            n += 1
 
 ### epoch runs through the datlist once, firing the network on each element
 #    epoch returns True or False depending on whether a solution has been found
@@ -209,7 +216,7 @@ def buildNetStep(*wts):
         layers.append(Layer(i, wts[i], step001))
     return Net(layers)
 
-def buildNet(*wts, lam=deflam):
+def buildNet(*wts, lam=1):
     layers = []
     for i in range(len(wts)):
         layers.append(Layer(i, wts[i], sigma(lam), dsigma(lam)))

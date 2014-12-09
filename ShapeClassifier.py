@@ -22,21 +22,66 @@ def read_image(filepath):
 	print("Done.")
 	return temp
 
-def build_net():
+def build_net1():
 	network = [];
 	input_layer = [];
 	for i in range(SIZE):
 		input_layer += [(neural.u(), neural.u())]
 	#print(input_layer)
+	hidden_layer = []
+	for i in range((SIZE+5)//2+1):
+		t = ()
+		for j in range(SIZE+1):
+			t += (neural.u(),)
+		hidden_layer += [t]
 	output_layer = []
 	for i in range(5):
 		print("Creating output neuron " + str(i))
 		t = ()
-		for j in range(SIZE+1):
+		for j in range((SIZE+5)//2+1):
 			t += (neural.u(),)
 		output_layer += [t]
 		print("Done.")
-	return output_layer
+	network += [input_layer]
+	network += [hidden_layer]
+	network += [output_layer]
+	return network
+
+def build_net():
+	network = []
+	input_layer = []
+	for i in range(3*(SIZE+5)//4):
+		#print("Creating input neuron " + str(i))
+		t = ()
+		for j in range(SIZE+1):
+			t += (neural.u(),)
+		input_layer += [t]
+	#print(input_layer)
+	hidden_layer1 = []
+	for i in range((SIZE+5)//2):
+		#print("Creating output neuron " + str(i))
+		t = ()
+		for j in range(3*(SIZE+5)//4+1):
+			t += (neural.u(),)
+		hidden_layer1 += [t]
+		print("Done.")
+	hidden_layer2 = []
+	for i in range((SIZE+5)//4):
+		#print("Creating output neuron " + str(i))
+		t = ()
+		for j in range((SIZE+5)//2+1):
+			t += (neural.u(),)
+		hidden_layer2 += [t]
+		print("Done.")
+	output_layer = []
+	for i in range(4):
+		print("Creating output neuron " + str(i))
+		t = ()
+		for j in range((SIZE+5)//4+1):
+			t += (neural.u(),)
+		output_layer += [t]
+		print("Done.")
+	return [input_layer,hidden_layer1,hidden_layer2,output_layer]
 
 # 1,0,0,0,0 is circle
 # train_net(image_data, [[1,0,0,0,0],[0,1,0,0,0]])
@@ -70,17 +115,21 @@ def classify(path, net):
 	elif(shape==1):
 		print("Shape is a Plus with %s certainty" % (prop))
 	elif(shape==2):
-		print("Shape is a Square with %s certainty" % (prop))
-
+		print("Shape is a Triangle with %s certainty" % (prop))
+	elif(shape==3):
+		print("Shape is a Circle with %s certainty" % (prop))
 
 	#output_layer = [neural.u(), neural.u(), neural.u(), neural.u(), neural.u()]
 	#network
 
 # Make training array and network
 
-image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png"),read_image("/Users/aakash/Downloads/shapeyz/sp.png")]
-training_data = gen_training_data(image_data, [[1,0,0,0,0], [0,1,0,0,0]])
-net = neural.buildNet(build_net())
+image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png"),read_image("/Users/aakash/Downloads/shapeyz/sp.png"),read_image("/Users/aakash/Downloads/shapeyz/st.png"),read_image("/Users/aakash/Downloads/shapeyz/sc.png")]
+#image_data = [read_image("/Users/aakash/Downloads/shapeyz/ss.png")]
+#training_data = gen_training_data(image_data, [[1,0,0,0,0]])
+training_data = gen_training_data(image_data, [[1,0,0,0], [0,1,0,0],[0,0,1,0],[0,0,0,1]])
+temp = build_net()
+net = neural.buildNet(temp[0], temp[1], temp[2], temp[3])
 classified = neural.classify(net, training_data, 0.2,verbose=True)
 #classify("/Users/aakash/Downloads/smallnoise.png", net)
 
